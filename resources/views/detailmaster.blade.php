@@ -45,17 +45,20 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ url('/beranda') }}">Back</a>
+                        </li>
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_1') }}">Home</a>
+                        <a class="nav-link click-scroll" href="{{ route('agamas.index') }}">Agama</a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_4') }}">FAQs</a>
+                        <a class="nav-link click-scroll" href="{{ route('penduduks.index') }}">Penduduk</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_5') }}">Contact</a>
+                        <a class="nav-link click-scroll" href="{{ route('hubungankks.index') }}">Hubungan KK</a>
                         </li>
                 </div>
             </div>
@@ -64,56 +67,26 @@
 
         <header class="site-header d-flex flex-column justify-content-center align-items-center">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
+               
 
-                    <div class="col-lg-5 col-12 mb-5">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ url('/beranda') }}">Homepage</a></li>
-
-                                <li class="breadcrumb-item active" aria-current="page">Master Data</li>
-                            </ol>
-                        </nav>
-
-                        <h2 class="text-white">Master Data<br> WNI </h2>
+                        <h2 style="text-align: center;" class="text-white">Welcome Back!</h2>
 
                         <div class="d-flex align-items-center mt-5">
 
-                        </div>
-                    </div>
-
-                    <div class="col-lg-5 col-12">
-                        <div class="topics-detail-block bg-white shadow-lg">
-                            <img src="images/topics/undraw_Remote_design_team_re_urdx.png"
-                                class="topics-detail-block-image img-fluid">
-                        </div>
-                    </div>
+                      
 
                 </div>
             </div>
         </header>
-
-
         <section class="topics-detail-section section-padding" id="topics-detail">
             <div class="container">
                 <div class="row">
 
                     <div class="col-lg-8 col-12 m-auto">
-                        <h3 class="mb-4">Pengenalan Master Data</h3>
+                        <h3 class="mb-4">Apa Itu Data Kewarganegaraan ?</h3>
 
                         <p>Data kewarganegaraan merujuk pada informasi yang mengidentifikasi status kewarganegaraan seseorang di suatu negara. Informasi ini mencakup apakah seseorang adalah warga negara suatu negara tertentu atau bukan. </p>
-
-
-                        <blockquote>
-                        <a href="{{ route('agamas.index') }}" class="btn btn-primary">Data Agama</a>
-                        </blockquote>
-                        <blockquote>
-                        <a href="{{ route('kks.index') }}" class="btn btn-primary">Data KK</a>
-                        </blockquote>
-                        <blockquote>
-                        <a href="{{ route('hubungankks.index') }}" class="btn btn-primary">Data Hubungan KK</a>
-                        </blockquote>
-                        
+ 
                         <p><strong>Data kewarganegaraan</strong> menjadi bagian dari master data personal seseorang, membantu dalam mengidentifikasi dan membedakan individu di dalam sistem. Dalam konteks perbankan atau sumber daya manusia, status kewarganegaraan dapat menjadi atribut penting dalam mengelola data nasabah atau karyawan.</p>
 
                     </div>

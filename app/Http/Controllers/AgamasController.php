@@ -23,12 +23,19 @@ class AgamasController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'agama' => 'required|string',
+            'agama' => 'required|string|unique:agamas', // Ensure 'agama' is unique in the 'agamas' table
         ]);
 
-        Agamas::create($validatedData);
+        try {
+            Agamas::create($validatedData);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) { // MySQL duplicate entry error code
+                return redirect()->route('agamas.create')->withErrors(['agama' => 'Data already exists.']);
+            }
+        }
 
-        return redirect()->route('agamas.index');
+        return redirect()->route('agamas.index')->with('success', 'Data added successfully.');
     }
 
     public function show($id)
@@ -46,13 +53,20 @@ class AgamasController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'agama' => 'required|string',
+            'agama' => 'required|string|unique:agamas,agama,' . $id, // Ensure 'agama' is unique, excluding the current record
         ]);
 
-        $agama = Agamas::find($id);
-        $agama->update($validatedData);
+        try {
+            $agama = Agamas::find($id);
+            $agama->update($validatedData);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) { // MySQL duplicate entry error code
+                return redirect()->route('agamas.edit', $id)->withErrors(['agama' => 'Data already exists.']);
+            }
+        }
 
-        return redirect()->route('agamas.index');
+        return redirect()->route('agamas.index')->with('success', 'Data updated successfully.');
     }
 
     public function destroy($id)
@@ -60,6 +74,6 @@ class AgamasController extends Controller
         $agama = Agamas::find($id);
         $agama->delete();
 
-        return redirect()->route('agamas.index');
+        return redirect()->route('agamas.index')->with('success', 'Data deleted successfully.');
     }
 }

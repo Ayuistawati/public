@@ -9,20 +9,27 @@ class Anggotakks extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['kk_id', 'penduduk_id', 'hubungankk_id', 'statusaktif'];
+    protected $table = 'anggotakks';
 
-    public function kk()
+    protected $fillable = [
+        'kk_id',
+        'penduduk_id',
+        'hubungankk_id',
+        'statusaktif',
+    ];
+
+    public function KK()
     {
         return $this->belongsTo(Kks::class);
     }
 
     public function penduduk()
     {
-        return $this->belongsTo(Penduduks::class);
+        return $this->belongsTo(Penduduks::class);    
     }
 
     public function hubungankk()
     {
-        return $this->belongsTo(Hubungankks::class);
+        return $this->belongsTo(Hubungankks::class);   
     }
 }

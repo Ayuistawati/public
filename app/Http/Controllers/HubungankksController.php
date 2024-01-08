@@ -20,9 +20,22 @@ class HubungankksController extends Controller
 
     public function store(Request $request)
     {
-        $hubungankks = Hubungankks::create($request->all());
-        return redirect()->route('hubungankks.index')->with('success', 'Hubungankks created successfully!');
+        $validatedData = $request->validate([
+            'hubungankk' => 'required|string|unique:hubungankks', // Ensure 'agama' is unique in the 'agamas' table
+        ]);
+
+        try {
+            Hubungankks::create($validatedData);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) { // MySQL duplicate entry error code
+                return redirect()->route('hubungankks.create')->withErrors(['hubungankks' => 'Data already exists.']);
+            }
+        }
+
+        return redirect()->route('hubungankks.index')->with('success', 'Data added successfully.');
     }
+
 
     public function show($id)
     {
@@ -38,11 +51,22 @@ class HubungankksController extends Controller
 
     public function update(Request $request, $id)
     {
-        $hubungankks = Hubungankks::findOrFail($id);
-        $hubungankks->update($request->all());
-        return redirect()->route('hubungankks.index')->with('success', 'Hubungankks updated successfully!');
-    }
+        $validatedData = $request->validate([
+            'hubungankk' => 'required|string|unique:hubungankks,hubungankk,' . $id, // Ensure 'agama' is unique, excluding the current record
+        ]);
 
+        try {
+            $hubungankk = Hubungankks::find($id);
+            $hubungankk->update($validatedData);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errorCode = $e->errorInfo[1];
+            if ($errorCode == 1062) { // MySQL duplicate entry error code
+                return redirect()->route('hubungankks.edit', $id)->withErrors(['hubungankk' => 'Data already exists.']);
+            }
+        }
+
+        return redirect()->route('hubungankks.index')->with('success', 'Data updated successfully.');
+    }
     public function destroy($id)
     {
         $hubungankks = Hubungankks::findOrFail($id);

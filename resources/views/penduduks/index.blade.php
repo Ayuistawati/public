@@ -46,17 +46,23 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_1') }}">Home</a>
+                    <li class="nav-item">
+                            <a class="nav-link click-scroll" href="{{ url('/beranda') }}">Home</a>
                         </li>
-
-
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_4') }}">FAQs</a>
+                        <a class="nav-link click-scroll" href="{{ route('agamas.index') }}">Agama</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_5') }}">Contact</a>
+                        <a class="nav-link click-scroll" href="{{ route('penduduks.index') }}">Penduduk</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('hubungankks.index') }}">Hubungan KK</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('kks.index') }}">Kartu Keluarga</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="{{ route('logout') }}">Logout</a>
                         </li>
                 </div>
             </div>
@@ -65,70 +71,58 @@
 
         <header class="site-header d-flex flex-column justify-content-center align-items-center">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
+               
 
-                    <div class="col-lg-5 col-12 mb-5">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ url('/detail-transaksi') }}">Back</a></li>
-
-                                <li class="breadcrumb-item active" aria-current="page">Penduduk</li>
-                            </ol>
-                        </nav>
-
-                        <h2 class="text-white">Data Penduduk<br> WNI </h2>
+                        <h2 style="text-align: center;" class="text-white">Data penduduk</h2>
 
                         <div class="d-flex align-items-center mt-5">
 
-                        </div>
-                    </div>
-
-                    <div class="col-lg-5 col-12">
-                        <div class="topics-detail-block bg-white shadow-lg">
-                           
-                        </div>
-                    </div>
+                      
 
                 </div>
             </div>
         </header>
 
 
-    <a href="{{ route('penduduks.create') }}" class="btn btn-primary">Tambah Penduduk</a>
+    <a href="{{ route('penduduks.create') }}" class="btn btn-primary">+ Tambah Penduduk</a>
 
     <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>NIK</th>
-                <th>Nama</th>
-                <th>Alamat</th>
-                <th>Tanggal Lahir</th>
-                <th>Agama ID</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($penduduksList as $penduduk)
-                <tr>
-                    <td>{{ $penduduk->id }}</td>
-                    <td>{{ $penduduk->nik }}</td>
-                    <td>{{ $penduduk->nama }}</td>
-                    <td>{{ $penduduk->alamat }}</td>
-                    <td>{{ $penduduk->lahir }}</td>
-                    <td>{{ $penduduk->agama_id }}</td>
-                    <td>
-                        <a href="{{ route('penduduks.show', $penduduk->id) }}" class="btn btn-info">Lihat</a>
-                        <a href="{{ route('penduduks.edit', $penduduk->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('penduduks.destroy', $penduduk->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>NIK</th>
+        <th>Nama</th>
+        <th>Alamat</th>
+        <th>Tanggal Lahir</th>
+        <th>Agama</th>
+        <th>Aksi</th>
+    </tr>
+</thead>
+<tbody>
+    @php
+        $counter = 1;
+    @endphp
+    @foreach($penduduksList as $penduduk)
+        <tr>
+            <td>{{ $counter++ }}</td>
+            <td>{{ $penduduk->nik }}</td>
+            <td>{{ $penduduk->nama }}</td>
+            <td>{{ $penduduk->alamat }}</td>
+            <td>{{ $penduduk->lahir }}</td>
+            <td>{{ $penduduk->agama_id }}</td>
+            <td>
+                <a href="{{ route('penduduks.show', $penduduk->id) }}" class="btn btn-info">Lihat</a>
+                <a href="{{ route('penduduks.edit', $penduduk->id) }}" class="btn btn-warning">Edit</a>
+                <form action="{{ route('penduduks.destroy', $penduduk->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</button>
+                </form>
+            </td>
+        </tr>
+    @endforeach
+</tbody>
+
     </table>
 
     <footer class="site-footer section-padding">

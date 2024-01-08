@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,17 +46,23 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_1') }}">Home</a>
+                    <li class="nav-item">
+                            <a class="nav-link click-scroll" href="{{ url('/beranda') }}">Home</a>
                         </li>
-
-
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_4') }}">FAQs</a>
+                        <a class="nav-link click-scroll" href="{{ route('agamas.index') }}">Agama</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_5') }}">Contact</a>
+                        <a class="nav-link click-scroll" href="{{ route('penduduks.index') }}">Penduduk</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('hubungankks.index') }}">Hubungan KK</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('kks.index') }}">Kartu Keluarga</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="{{ route('logout') }}">Logout</a>
                         </li>
                 </div>
             </div>
@@ -66,64 +71,49 @@
 
         <header class="site-header d-flex flex-column justify-content-center align-items-center">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
+               
 
-                    <div class="col-lg-5 col-12 mb-5">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ url('/detail-master') }}">Back</a></li>
-
-                                <li class="breadcrumb-item active" aria-current="page">Kartu Keluarga</li>
-                            </ol>
-                        </nav>
-
-                        <h2 class="text-white">Data<br>Kartu Keluarga</h2>
+                        <h2 style="text-align: center;" class="text-white">Data Kartu Keluarga</h2>
 
                         <div class="d-flex align-items-center mt-5">
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-5 col-12">
-                        <div class="topics-detail-block bg-white shadow-lg">
-                           
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </header>
+                        </header>
 
 
-        <a href="{{ route('kks.create') }}" class="btn btn-primary">Tambah KKS</a>
+
+
+        <a href="{{ route('kks.create') }}" class="btn btn-primary">+ Tambah KK</a>
 
     <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nomor KK</th>
-                <th>Status Aktif</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($kksList as $kks)
-                <tr>
-                    <td>{{ $kks->id }}</td>
-                    <td>{{ $kks->nokk }}</td>
-                    <td>{{ $kks->statusaktif }}</td>
-                    <td>
-                        <a href="{{ route('kks.show', $kks->id) }}" class="btn btn-info">Lihat</a>
-                        <a href="{{ route('kks.edit', $kks->id) }}" class="btn btn-warning">Edit</a>
-                        <form action="{{ route('kks.destroy', $kks->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>Nomor KK</th>
+        <th>Status Aktif</th>
+        <th>Aksi</th>
+    </tr>
+</thead>
+<tbody>
+    @php
+        $counter = 1;
+    @endphp
+    @foreach($kksList as $kks)
+        <tr>
+            <td>{{ $counter++ }}</td>
+            <td>{{ $kks->nokk }}</td>
+            <td>{{ $kks->statusaktif }}</td>
+            <td>
+                <a href="{{ route('kks.show', $kks->id) }}" class="btn btn-info">Lihat</a>
+                <a href="{{ route('kks.edit', $kks->id) }}" class="btn btn-warning">Edit</a>
+                <form action="{{ route('kks.destroy', $kks->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah Anda yakin ingin menghapus?')">Hapus</button>
+                </form>
+            </td>
+        </tr>
+    @endforeach
+</tbody>
+
     </table>
 
 

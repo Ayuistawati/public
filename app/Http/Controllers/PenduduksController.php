@@ -23,11 +23,11 @@ class PenduduksController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nik' => 'required',
+            'nik' => 'required|unique:penduduks,nik',
             'nama' => 'required',
             'alamat' => 'required',
             'lahir' => 'required|date',
-            'agama_id' => 'required|exists:agamas,id',
+            'agama_id' => 'required|exists:agamas,agama',
         ]);
 
         $penduduks = Penduduks::create($validatedData);
@@ -50,11 +50,11 @@ class PenduduksController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nik' => 'required',
+            'nik' => 'required|unique:penduduks,nik,' . $id,
             'nama' => 'required',
             'alamat' => 'required',
             'lahir' => 'required|date',
-            'agama_id' => 'required|exists:agamas,id',
+            'agama_id' => 'required|exists:agamas,agama',
         ]);
 
         $penduduks = Penduduks::findOrFail($id);
