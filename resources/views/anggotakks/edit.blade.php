@@ -46,17 +46,23 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_1') }}">Home</a>
+                    <li class="nav-item">
+                            <a class="nav-link click-scroll" href="{{ url('/beranda') }}">Home</a>
                         </li>
-
-
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_4') }}">FAQs</a>
+                        <a class="nav-link click-scroll" href="{{ route('agamas.index') }}">Agama</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_5') }}">Contact</a>
+                        <a class="nav-link click-scroll" href="{{ route('penduduks.index') }}">Penduduk</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('hubungankks.index') }}">Hubungan KK</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('kks.index') }}">Kartu Keluarga</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="{{ route('logout') }}">Logout</a>
                         </li>
                 </div>
             </div>
@@ -65,76 +71,52 @@
 
         <header class="site-header d-flex flex-column justify-content-center align-items-center">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
+               
 
-                    <div class="col-lg-5 col-12 mb-5">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ url('/detail-transaksi') }}">Back</a></li>
-
-                                <li class="breadcrumb-item active" aria-current="page">Anggota KK</li>
-                            </ol>
-                        </nav>
-
-                        <h2 class="text-white">Edit<br>Anggota KK</h2>
+                        <h2 style="text-align: center;" class="text-white">Anggota KK</h2>
 
                         <div class="d-flex align-items-center mt-5">
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-5 col-12">
-                        <div class="topics-detail-block bg-white shadow-lg">
-                           
-                        </div>
-                    </div>
-
-                </div>
-            </div>
         </header>
 
+        <form action="{{ route('anggotakks.update', ['nokk' => $nokk, 'id' => $anggotakks->id]) }}" method="POST">
+            @csrf
+            @method('PUT')
 
-        <form method="post" action="{{ route('anggotakks.update', $anggotakks->id) }}">
-        @csrf
-        @method('PUT')
+            <div class="mb-3">
+                <label for="penduduk_id" class="form-label">Pilih Penduduk</label>
+                <select name="penduduk_id" class="form-select">
+                    @foreach($penduduksList as $penduduk)
+                        <option value="{{ $penduduk->id }}" {{ $anggotakks->penduduk_id == $penduduk->id ? 'selected' : '' }}>
+                            {{ $penduduk->nama }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="kk_id">ID KK:</label>
-            <select class="form-control" id="kk_id" name="kk_id" required>
-                @foreach($kksList as $kk)
-                    <option value="{{ $kk->id }}" {{ $anggotakks->kk_id == $kk->id ? 'selected' : '' }}>{{ $kk->id }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="mb-3">
+                <label for="hubungankk_id" class="form-label">Pilih Hubungan KK</label>
+                <select name="hubungankk_id" class="form-select">
+                    @foreach($hubungankksList as $hubungankk)
+                        <option value="{{ $hubungankk->id }}" {{ $anggotakks->hubungankk_id == $hubungankk->id ? 'selected' : '' }}>
+                            {{ $hubungankk->hubungankk }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="penduduk_id">ID Penduduk:</label>
-            <select class="form-control" id="penduduk_id" name="penduduk_id" required>
-                @foreach($penduduksList as $penduduk)
-                    <option value="{{ $penduduk->id }}" {{ $anggotakks->penduduk_id == $penduduk->id ? 'selected' : '' }}>{{ $penduduk->id }}</option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="hubungankk_id">ID Hubungan:</label>
-            <select class="form-control" id="hubungankk_id" name="hubungankk_id" required>
-                @foreach($hubungankksList as $hubungankk)
-                    <option value="{{ $hubungankk->id }}" {{ $anggotakks->hubungankk_id == $hubungankk->id ? 'selected' : '' }}>{{ $hubungankk->id }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="form-group">
-    <label for="statusaktif">Status Aktif:</label>
-    <input class="form-control" id="statusaktif" name="statusaktif">
+            <div class="mb-3">
+    <label for="statusaktif" class="form-label">Status Aktif</label>
+    <select class="form-select" name="statusaktif" id="statusaktif" required>
+        <option value="aktif" {{ $anggotakks->statusaktif === 'aktif' ? 'selected' : '' }}>Aktif</option>
+        <option value="tidak_aktif" {{ $anggotakks->statusaktif === 'tidak_aktif' ? 'selected' : '' }}>Tidak Aktif</option>
+    </select>
 </div>
 
+            <button type="submit" class="btn btn-primary">Update Anggota KK</button>
+        </form>
+    
 
-        <!-- Add other form fields as needed -->
-
-        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-    </form>
-
+           
     <footer class="site-footer section-padding">
         <div class="container">
             <div class="row">

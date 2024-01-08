@@ -1,7 +1,4 @@
 <?php
-
-// app/Http/Controllers/AuthController.php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,40 +10,52 @@ class AuthController extends Controller
 {
     public function register(Request $request)
     {
+        $existingUser = User::first();
+
+        if ($existingUser) {
+            return response(['message' => 'Only one user is allowed.'], 422);
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
-    
+
         if ($validator->fails()) {
             return response(['errors' => $validator->errors()->all()], 422);
         }
-    
+
         $user = User::create(array_merge(
             $validator->validated(),
             ['password' => bcrypt($request->password)]
         ));
-    
+
         $token = $user->createToken('authToken')->accessToken;
-    
+
         return response(['token' => $token, 'user' => $user], 201);
     }
-    
+
     public function login(Request $request)
     {
+        $existingUser = User::first();
+
+        if (!$existingUser) {
+            return response(['message' => 'No user registered.'], 401);
+        }
+
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-    
+
         if (Auth::attempt($credentials)) {
             $user = User::where('email', $request->email)->first();
             $token = $user->createToken('authToken')->accessToken;
-    
+
             return response(['token' => $token, 'user' => $user], 200);
         }
-    
+
         return response(['message' => 'Invalid credentials'], 401);
     }
 

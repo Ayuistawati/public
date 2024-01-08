@@ -42,17 +42,23 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_1') }}">Home</a>
+                    <li class="nav-item">
+                            <a class="nav-link click-scroll" href="{{ url('/beranda') }}">Home</a>
                         </li>
-
-
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('agamas.index') }}">Agama</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('penduduks.index') }}">Penduduk</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('hubungankks.index') }}">Hubungan KK</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('kks.index') }}">Kartu Keluarga</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link click-scroll" href="{{ route('logout') }}">Logout</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_5') }}">Contact</a>
                         </li>
                 </div>
             </div>
@@ -68,7 +74,7 @@
                         <form method="get" class="custom-form mt-4 pt-2 mb-lg-0 mb-5" role="search">
                             <div class="input-group input-group-lg">
                                 <span class="input-group-text bi-search" id="basic-addon1"></span>
-                                <input name="keyword" type="search" class="form-control" id="keyword" placeholder="Data, Agama..." aria-label="Search">
+                                <input name="keyword" type="search" class="form-control" id="keyword" placeholder="Kartu Keluarga, Agama..." aria-label="Search">
                                 <button type="submit" class="form-control">Search</button>
                             </div>
                         </form>
@@ -77,40 +83,7 @@
             </div>
         </section>
 
-        <!-- Featured Section -->
-        <section class="featured-section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-4 col-12 mb-4 mb-lg-0">
-                        <div class="custom-block bg-white shadow-lg">
-                                <div class="d-flex">
-                                    <div>
-                                    <a href="{{ route('detail.master') }}"><h5 class="mb-2">Master Data</h5></a> 
-                                        <p class="mb-0">----</p>
-                                    </div>
-                                </div>
-                                <img src="images/topics/undraw_Remote_design_team_re_urdx.png" class="custom-block-image img-fluid" alt="">
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6 col-12">
-                        <div class="custom-block custom-block-overlay">
-                            <div class="d-flex flex-column h-100">
-                                <img src="images/businesswoman-using-tablet-analysis.jpg" class="custom-block-image img-fluid" alt="">
-                                <div class="custom-block-overlay-text d-flex">
-                                    <div>
-                                    <a href="{{ route('detail.transaksi') }}"><h5 class="mb-2"><h5 class="text-white mb-2">Data Kependudukan</h5></a> 
-                                        <p class="text-white">---</p>
-                                    </div>
-                                </div>
-                                <div class="section-overlay"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+       
 
         <!-- FAQ Section -->
         <section class="faq-section section-padding" id="section_4">
@@ -155,8 +128,7 @@
         </section>
 
     </main>
-    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-    Logout
+   
 </a>
 
 

@@ -33,7 +33,7 @@ Route::get('/', [WebController::class, 'showLoginForm'])->name('login.form');
 Route::post('/', [WebController::class, 'login'])->name('login');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/beranda', [BerandaController::class, 'mainIndex'])->name('main.index');
+Route::get('/beranda', [BerandaController::class, 'mainIndex'])->name('main.index');
 Route::get('/detail-master', [DetailController::class, 'detailMaster'])->name('detail.master');
 Route::get('/detail-transaksi', [DetailController::class, 'detailTransaksi'])->name('detail.transaksi');
 
@@ -72,26 +72,19 @@ Route::put('/penduduks/{id}', [PenduduksController::class, 'update'])->name('pen
 Route::delete('/penduduks/{id}', [PenduduksController::class, 'destroy'])->name('penduduks.destroy');
 
 
-// Index Page
-Route::get('/anggotakks', [AnggotakksController::class, 'index'])->name('anggotakks.index');
+// Route untuk KksController
+Route::resource('kks', KksController::class);
 
-// Create Form
-Route::get('/anggotakks/create', [AnggotakksController::class, 'create'])->name('anggotakks.create');
-
-// Store Data
-Route::post('/anggotakks', [AnggotakksController::class, 'store'])->name('anggotakks.store');
-
-// Show Data
-Route::get('/anggotakks/{id}', [AnggotakksController::class, 'show'])->name('anggotakks.show');
-
-// Edit Form
-Route::get('/anggotakks/{id}/edit', [AnggotakksController::class, 'edit'])->name('anggotakks.edit');
-
-// Update Data
-Route::put('/anggotakks/{id}', [AnggotakksController::class, 'update'])->name('anggotakks.update');
-
-// Delete Data
-Route::delete('/anggotakks/{id}', [AnggotakksController::class, 'destroy'])->name('anggotakks.destroy');
+// Route untuk AnggotakksController
+Route::prefix('kks/{nokk}/anggotakks')->group(function () {
+    Route::get('/', [AnggotakksController::class, 'index'])->name('anggotakks.index');
+    Route::get('create', [AnggotakksController::class, 'create'])->name('anggotakks.create');
+    Route::post('/', [AnggotakksController::class, 'store'])->name('anggotakks.store');
+    Route::get('{id}', [AnggotakksController::class, 'show'])->name('anggotakks.show');
+    Route::get('{id}/edit', [AnggotakksController::class, 'edit'])->name('anggotakks.edit');
+    Route::put('{id}', [AnggotakksController::class, 'update'])->name('anggotakks.update');
+    Route::delete('{id}', [AnggotakksController::class, 'destroy'])->name('anggotakks.destroy');
+});
 
     // Rute logout
  Route::get('/logout', [WebController::class, 'logout'])->name('logout');

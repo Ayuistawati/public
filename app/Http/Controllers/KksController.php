@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kks;
+use App\Models\Anggotakks;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class KksController extends Controller
@@ -20,16 +22,22 @@ class KksController extends Controller
 
     public function store(Request $request)
     {
-        $kks = Kks::create($request->all());
+        $validatedData = $request->validate([
+            'nokk' => 'required|unique:kks',
+            'statusaktif' => 'required|in:aktif,tidak_aktif', 
+        ]);
+    
+        $kks = Kks::create($validatedData);
         return redirect()->route('kks.index')->with('success', 'Kks created successfully!');
     }
 
     public function show($id)
     {
         $kks = Kks::findOrFail($id);
-        return view('kks.show', ['kks' => $kks]);
+        $anggotaKksList = Anggotakks::where('kk_id', $kks->nokk)->get();
+        
+        return view('kks.show', compact('kks', 'anggotaKksList'));
     }
-
     public function edit($id)
     {
         $kks = Kks::findOrFail($id);
@@ -39,7 +47,15 @@ class KksController extends Controller
     public function update(Request $request, $id)
     {
         $kks = Kks::findOrFail($id);
-        $kks->update($request->all());
+    
+        $validatedData = $request->validate([
+            'nokk' => [
+                'required',
+                Rule::unique('kks')->ignore($kks->id),
+            ],
+        ]);
+    
+        $kks->update($validatedData);
         return redirect()->route('kks.index')->with('success', 'Kks updated successfully!');
     }
 

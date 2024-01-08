@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,17 +46,23 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_1') }}">Home</a>
+                    <li class="nav-item">
+                            <a class="nav-link click-scroll" href="{{ url('/beranda') }}">Home</a>
                         </li>
-
-
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_4') }}">FAQs</a>
+                        <a class="nav-link click-scroll" href="{{ route('agamas.index') }}">Agama</a>
                         </li>
-
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_5') }}">Contact</a>
+                        <a class="nav-link click-scroll" href="{{ route('penduduks.index') }}">Penduduk</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('hubungankks.index') }}">Hubungan KK</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link click-scroll" href="{{ route('kks.index') }}">Kartu Keluarga</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="{{ route('logout') }}">Logout</a>
                         </li>
                 </div>
             </div>
@@ -66,33 +71,12 @@
 
         <header class="site-header d-flex flex-column justify-content-center align-items-center">
             <div class="container">
-                <div class="row justify-content-center align-items-center">
+               
 
-                    <div class="col-lg-5 col-12 mb-5">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ url('/detail-master') }}">Back</a></li>
-
-                                <li class="breadcrumb-item active" aria-current="page">Kartu Keluarga</li>
-                            </ol>
-                        </nav>
-
-                        <h2 class="text-white">Edit<br>Kartu Keluarga</h2>
+                        <h2 style="text-align: center;" class="text-white">Data Kartu Keluarga</h2>
 
                         <div class="d-flex align-items-center mt-5">
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-5 col-12">
-                        <div class="topics-detail-block bg-white shadow-lg">
-                           
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </header>
+                        </header>
 
 
         <form method="post" action="{{ route('kks.update', $kks->id) }}">

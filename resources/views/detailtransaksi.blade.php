@@ -46,17 +46,15 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-lg-5 me-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_1') }}">Home</a>
+                        <a class="nav-link click-scroll" href="{{ route('kks.index') }}">KK</a>
                         </li>
 
 
                         <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_4') }}">FAQs</a>
+                        <a class="nav-link click-scroll" href="{{ route('anggotakks.index') }}">Anggota KK</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="{{ url('#section_5') }}">Contact</a>
-                        </li>
+                       
                 </div>
             </div>
         </nav>
@@ -102,14 +100,6 @@
                         <h3 class="mb-4">Pengenalan Kependudukan</h3>
 
                         <p>Data kewarganegaraan merujuk pada informasi yang mengidentifikasi status kewarganegaraan seseorang di suatu negara. Informasi ini mencakup apakah seseorang adalah warga negara suatu negara tertentu atau bukan. </p>
-
-
-                        <blockquote>
-                        <a href="{{ route('penduduks.index') }}" class="btn btn-primary">Data Penduduk</a>
-                        </blockquote>
-                        <blockquote>
-                        <a href="{{ route('anggotakks.index') }}" class="btn btn-primary">Data Anggota KK</a>
-                        </blockquote>
                         
                         <p><strong>Data kewarganegaraan</strong> menjadi bagian dari master data personal seseorang, membantu dalam mengidentifikasi dan membedakan individu di dalam sistem. Dalam konteks perbankan atau sumber daya manusia, status kewarganegaraan dapat menjadi atribut penting dalam mengelola data nasabah atau karyawan.</p>
 
